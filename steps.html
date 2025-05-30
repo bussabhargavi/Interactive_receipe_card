@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cooking Steps</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-container">
+    <h1>👨‍🍳 Let's Cook!</h1>
+    <div id="timer">⏱️ Timer: <span id="time-display">00:00</span></div>
+
+    <button class="btn" id="toggle-steps">👁️ Toggle Steps</button>
+    <ol id="steps-list" class="styled-list">
+      <li><strong>Step 1:</strong> 🧈 Heat butter in a pan and sauté onions until golden brown.</li>
+      <li><strong>Step 2:</strong> 🧄 Add ginger-garlic paste and cook for 1 minute until aromatic.</li>
+      <li><strong>Step 3:</strong> 🍅 Stir in the tomato puree and cook until the oil separates.</li>
+      <li><strong>Step 4:</strong> 🌶️ Mix in chili powder, garam masala, and salt. Cook for 2 minutes.</li>
+      <li><strong>Step 5:</strong> 🥛 Add cream and stir to form a smooth, rich gravy.</li>
+      <li><strong>Step 6:</strong> 🧀 Gently add paneer cubes. Simmer on low heat for 5 minutes.</li>
+      <li><strong>Step 7:</strong> 🌿 Garnish with coriander and serve hot with naan or rice.</li>
+    </ol>
+
+    <div class="buttons">
+      <button class="btn" id="next-btn">➡ Next Step</button>
+      <a class="btn back" href="index.html">⬅ Back to Ingredients</a>
+    </div>
+    <div class="progress-bar">
+      <div id="progress" class="progress-fill"></div>
+    </div>
+    <div id="completion-message" style="display:none; margin-top:20px; font-size:1.2em; color:#d14e72; font-weight:bold;">
+      🎉 Your dish is ready! Enjoy your Paneer Butter Masala! 🎉
+    </div>
+  </div>
+
+  <script>
+    const steps = document.querySelectorAll('#steps-list li');
+    const nextBtn = document.getElementById('next-btn');
+    const progressBar = document.getElementById('progress');
+    const completionMessage = document.getElementById('completion-message');
+    const stepsList = document.getElementById('steps-list');
+    const timerDisplay = document.getElementById('time-display');
+    const toggleStepsBtn = document.getElementById('toggle-steps');
+
+    let currentStep = 0;
+    let totalSteps = steps.length;
+    let startTime = null;
+    let timerInterval;
+
+    function startTimer() {
+      startTime = Date.now();
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+        const seconds = String(elapsed % 60).padStart(2, '0');
+        timerDisplay.textContent = `${minutes}:${seconds}`;
+      }, 1000);
+    }
+
+    function updateStep() {
+      steps.forEach(step => step.classList.remove('active'));
+
+      if (currentStep < totalSteps) {
+        steps[currentStep].classList.add('active');
+        let progressPercent = (currentStep / totalSteps) * 100;
+        progressBar.style.width = progressPercent + '%';
+        nextBtn.textContent = currentStep === totalSteps - 1 ? '✅ Finish' : '➡ Next Step';
+        completionMessage.style.display = 'none';
+      } else {
+        steps.forEach(step => step.classList.remove('active'));
+        progressBar.style.width = '100%';
+        nextBtn.style.display = 'none';
+        completionMessage.style.display = 'block';
+        clearInterval(timerInterval);
+      }
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentStep === 0) startTimer();
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateStep();
+      }
+    });
+
+    toggleStepsBtn.addEventListener('click', () => {
+      stepsList.style.display = stepsList.style.display === 'none' ? 'block' : 'none';
+    });
+
+    updateStep();
+  </script>
+</body>
+</html>
