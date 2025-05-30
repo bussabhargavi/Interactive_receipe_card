@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paneer Butter Masala - Ingredients</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-container">
+    <h1>🧀 Paneer Butter Masala</h1>
+    <p><strong>Prep Time:</strong> 30 mins | <strong>Serves:</strong> 2-3 people</p>
+    <img src="paneer.jpg" class="dish-img" alt="Paneer Butter Masala" />
+
+    <button class="btn" id="toggle-ingredients">👁️ Toggle Ingredients</button>
+
+    <h2>🧂 Ingredients</h2>
+    <ul class="styled-list" id="ingredients-list">
+      <li><label>🧀 <strong>200g Paneer</strong>, cubed</label></li>
+      <li><label>🧈 <strong>2 tbsp Butter</strong></label></li>
+      <li><label>🧅 <strong>2 Onions</strong>, finely chopped</label></li>
+      <li><label>🍅 <strong>2 Tomatoes</strong>, pureed</label></li>
+      <li><label>🧄 <strong>1 tbsp Ginger-Garlic Paste</strong></label></li>
+      <li><label>🥛 <strong>1/2 cup Cream</strong></label></li>
+      <li><label>🌶️ <strong>1 tsp Red Chili Powder</strong></label></li>
+      <li><label>🧂 <strong>1 tsp Garam Masala</strong></label></li>
+      <li><label>🧂 <strong>Salt</strong> to taste</label></li>
+      <li><label>🌿 <strong>Coriander Leaves</strong> for garnish</label></li>
+    </ul>
+    <a class="btn" href="steps.html">▶ Start Cooking</a>
+    <button class="btn" onclick="window.print()">🖨️ Print Recipe</button>
+  </div>
+  <script>
+    document.getElementById('toggle-ingredients').addEventListener('click', () => {
+      const list = document.getElementById('ingredients-list');
+      list.style.display = list.style.display === 'none' ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html>
